@@ -18,9 +18,11 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class WriteActivity extends Activity {
+	private EditText newText;
 
 
 	@Override
@@ -31,7 +33,10 @@ public class WriteActivity extends Activity {
 	}
 
 	public void startWritingProcess(View v){
-		String nfcMessage = "Mark!!!!!";
+		
+		newText = (EditText) findViewById(R.id.newTextMessage);
+		
+		String nfcMessage = newText.getText().toString();
 		 
 		// When an NFC tag comes into range, call the main activity which handles writing the data to the tag
 		NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -53,6 +58,8 @@ public class WriteActivity extends Activity {
 	    if(nfcMessage != null) {
 	        if(writeTag(this, tag, nfcMessage))
 	        	Toast.makeText(this, "Write successfull", Toast.LENGTH_LONG).show();
+	        
+	        newText.setText("sample text");
 	    }
 	}
 	

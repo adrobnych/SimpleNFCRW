@@ -34,14 +34,15 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            
         </activity>
         <activity
             android:name="com.droidbrew.nfcspike.WriteActivity"
             android:label="@string/title_activity_write" >
-            
         </activity>
-
+        <activity
+            android:name="com.droidbrew.nfcspike.ShowTagDataActivity"
+            android:label="@string/title_activity_show_tag_data" >
+        </activity>
     </application>
 
 </manifest>

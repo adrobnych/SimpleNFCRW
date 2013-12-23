@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="placeholder">Here will be text from Tag</string>
     <string name="title_activity_write">WriteActivity</string>
+    <string name="title_activity_show_tag_data">ShowTagDataActivity</string>
 
 </resources>
