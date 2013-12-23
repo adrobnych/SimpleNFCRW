@@ -5,12 +5,14 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature
-    	android:name="android.hardware.nfc"
-    	android:required="true" />
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -28,11 +30,18 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/com.droidbrew.nfcspike" />
 
-                <data android:mimeType="text/plain" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            
         </activity>
+        <activity
+            android:name="com.droidbrew.nfcspike.WriteActivity"
+            android:label="@string/title_activity_write" >
+            
+        </activity>
+
     </application>
 
 </manifest>
