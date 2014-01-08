@@ -19,27 +19,41 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WriteActivity extends Activity {
 	private EditText newText;
-
+	private TextView tvTapToBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write);
+		tvTapToBack = (TextView) findViewById(R.id.tapToBack);
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		tvTapToBack.setText("");
 	}
 
 	public void startWritingProcess(View v){
 		
+		NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		if (nfcAdapter == null) {
+			Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+			return;
+		}
+		if (!nfcAdapter.isEnabled()) {
+			Toast.makeText(this, "NFC is disabled.", Toast.LENGTH_LONG).show();
+			return;
+		}
 		newText = (EditText) findViewById(R.id.newTextMessage);
 		
 		String nfcMessage = newText.getText().toString();
-		 
-		// When an NFC tag comes into range, call the main activity which handles writing the data to the tag
-		NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		 
 		Intent nfcIntent = new Intent(this, WriteActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		nfcIntent.putExtra("nfcMessage", nfcMessage);
@@ -47,6 +61,8 @@ public class WriteActivity extends Activity {
 		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);  
 		 
 		nfcAdapter.enableForegroundDispatch((Activity)this, pi, new IntentFilter[] {tagDetected}, null);
+		
+		tvTapToBack.setText("Tap NFC Tag to back of the device for recording...");
 	}
 	
 	public void onNewIntent(Intent intent) {

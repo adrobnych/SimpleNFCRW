@@ -25,15 +25,12 @@ public class MainActivity extends Activity {
 		readNFCTextView = (TextView) findViewById(R.id.placeholder);
 		nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if (nfcAdapter == null) {
-			// Stop here, we definitely need NFC
 			Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-			finish();
 			return;
 		}
 		if (!nfcAdapter.isEnabled()) {
-			readNFCTextView.setText("NFC is disabled.");
-		} else {
-			readNFCTextView.setText(R.string.placeholder);
+			Toast.makeText(this, "NFC is disabled.", Toast.LENGTH_LONG).show();
+			return;
 		}
 
 		handleIntent();
